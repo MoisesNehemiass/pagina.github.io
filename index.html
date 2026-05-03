@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildCo Constructora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #181818;
+      --gold: #c9a84c;
+      --gold-light: #e2c97e;
+      --gray: #888888;
+      --light: #f5f5f0;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 4rem;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+      backdrop-filter: blur(4px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--light); text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 500; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.5) 50%, rgba(201,168,76,0.15) 100%),
+        url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: heroZoom 12s ease-out forwards;
+    }
+    @keyframes heroZoom { to { transform: scale(1); } }
+
+    .hero-content {
+      position: relative; text-align: center; padding: 2rem;
+      animation: fadeUp 1.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-tag {
+      display: inline-block; margin-bottom: 1.5rem;
+      font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(201,168,76,0.4);
+      padding: 0.4rem 1.2rem; border-radius: 2px;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300; line-height: 1.05;
+      margin-bottom: 1.5rem; letter-spacing: -1px;
+    }
+    .hero h1 span { color: var(--gold); font-weight: 700; }
+    .hero p {
+      max-width: 520px; margin: 0 auto 2.5rem;
+      color: rgba(245,245,240,0.7); font-size: 1rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .btn-gold {
+      display: inline-block; padding: 1rem 2.8rem;
+      background: var(--gold); color: var(--black);
+      font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 600; text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block; padding: 1rem 2.8rem;
+      background: transparent; color: var(--light);
+      border: 1px solid rgba(245,245,240,0.4);
+      font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 500; text-decoration: none; cursor: pointer; margin-left: 1rem;
+      transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+    .hero-scroll span { font-size: 0.65rem; letter-spacing: 3px; color: var(--gray); text-transform: uppercase; }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .section-title strong { font-weight: 700; }
+    .section-desc {
+      color: rgba(245,245,240,0.6); font-weight: 300;
+      line-height: 1.8; max-width: 560px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center; background: var(--dark);
+    }
+    .about-image {
+      position: relative; height: 520px; overflow: hidden;
+    }
+    .about-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .about-image:hover img { transform: scale(1.04); }
+    .about-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), transparent);
+      pointer-events: none;
+    }
+    .about-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      width: 120px; height: 120px; background: var(--gold);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .about-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 700; color: var(--black); line-height: 1;
+    }
+    .about-badge .lbl { font-size: 0.6rem; letter-spacing: 2px; color: var(--black); text-transform: uppercase; }
+    .stats { display: flex; gap: 3rem; margin-top: 3rem; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 700; color: var(--gold); line-height: 1;
+    }
+    .stat-label { font-size: 0.7rem; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; margin-top: 0.3rem; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--black); }
+    .services-header { text-align: center; margin-bottom: 4rem; }
+    .services-header .section-desc { margin: 0 auto; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--card); padding: 2.5rem 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .service-card:hover::before { width: 100%; }
+    .service-card:hover { border-color: rgba(201,168,76,0.2); transform: translateY(-6px); }
+    .service-icon { font-size: 2.2rem; margin-bottom: 1.5rem; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .service-card p { color: var(--gray); font-size: 0.88rem; line-height: 1.7; font-weight: 300; }
+
+    /* ── PROJECTS ── */
+    .projects { background: var(--dark); }
+    .projects-header { margin-bottom: 3.5rem; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 1.2rem;
+    }
+    .project-item {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: var(--card);
+    }
+    .project-item:first-child { grid-column: span 2; height: 420px; }
+    .project-item:not(:first-child) { height: 280px; }
+    .project-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .project-item:hover img { transform: scale(1.07); }
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 50%, transparent 100%);
+      opacity: 0; transition: opacity 0.4s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem;
+    }
+    .project-item:hover .project-overlay { opacity: 1; }
+    .project-overlay h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem;
+    }
+    .project-overlay span { font-size: 0.7rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+    .project-tag {
+      position: absolute; top: 1.2rem; left: 1.2rem;
+      background: var(--gold); color: var(--black);
+      font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; font-weight: 600;
+    }
+
+    /* ── VIDEOS ── */
+    .videos { background: var(--black); }
+    .videos-header { margin-bottom: 3.5rem; }
+    .videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .video-card {
+      position: relative; background: var(--card);
+      overflow: hidden; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: border-color 0.3s;
+    }
+    .video-card:hover { border-color: rgba(201,168,76,0.3); }
+    .video-thumb {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      display: block; transition: transform 0.5s;
+    }
+    .video-card:hover .video-thumb { transform: scale(1.04); }
+    .video-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      width: 56px; height: 56px;
+      background: rgba(201,168,76,0.9); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .video-card:hover .video-play { transform: translate(-50%, -60%) scale(1.1); background: var(--gold); }
+    .video-play svg { fill: var(--black); width: 20px; height: 20px; margin-left: 3px; }
+    .video-info { padding: 1.3rem 1.5rem; }
+    .video-info h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.3rem; }
+    .video-info span { font-size: 0.72rem; color: var(--gray); }
+
+    /* ── CTA ── */
+    .cta {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a1500 100%);
+      text-align: center; padding: 8rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=60') center/cover;
+      opacity: 0.08;
+    }
+    .cta-content { position: relative; }
+    .cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300; margin-bottom: 1.2rem;
+    }
+    .cta h2 strong { color: var(--gold); font-weight: 700; }
+    .cta p { color: rgba(245,245,240,0.6); margin-bottom: 3rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #070707; padding: 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--gold); letter-spacing: 3px;
+    }
+    .footer-text { color: var(--gray); font-size: 0.78rem; margin-top: 0.4rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.75rem; letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      section { padding: 5rem 2rem; }
+      .about { grid-template-columns: 1fr; gap: 3rem; }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .project-item:first-child { grid-column: span 2; }
+      .videos-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 2rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BuildCo</div>
+      <ul  class="nav-links">
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Constructora BOLIVAR</div>
+    <h1>Construimos <span>Tu Visión</span><br>con Precisión</h1>
+    <p>Más de 15 años transformando espacios en realidades. Casas, edificios, remodelaciones y obras comerciales con los más altos estándares de calidad.</p>
+    <a href="#projects" class="btn-gold">Ver Proyectos</a>
+    <a href="#contact" class="btn-outline">Contáctanos</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image reveal">
+    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80" alt="Equipo de construcción"/>
+    <div class="about-badge">
+      <span class="num">15+</span>
+      <span class="lbl">Años</span>
+    </div>
+  </div>
+  <div class="reveal">
+    <span class="section-label">Quiénes Somos</span>
+    <h2 class="section-title">Excelencia en cada <strong>obra que construimos</strong></h2>
+    <p class="section-desc">
+      Somos una empresa constructora comprometida con la calidad, innovación y entrega puntual. Cada proyecto refleja nuestra pasión por la arquitectura y el detalle impecable.
+    </p>
+    <div class="stats">
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Proyectos</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfacción</div>
+      </div>
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Expertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <span class="section-label">Lo que Hacemos</span>
+    <h2 class="section-title">Nuestros <strong>Servicios</strong></h2>
+    <p class="section-desc">Cubrimos todas las etapas de construcción con soluciones integrales adaptadas a cada cliente.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🏠</div>
+      <h3>Casas Residenciales</h3>
+      <p>Diseñamos y construimos hogares únicos que reflejan la personalidad y estilo de vida de cada familia.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏢</div>
+      <h3>Edificios & Apartamentos</h3>
+      <p>Proyectos de gran escala con materiales de primera calidad y tecnología de construcción moderna.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🔨</div>
+      <h3>Remodelaciones</h3>
+      <p>Transformamos espacios existentes con renovaciones que combinan funcionalidad y estética contemporánea.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏪</div>
+      <h3>Obras Comerciales</h3>
+      <p>Locales, oficinas y centros comerciales construidos para potenciar tu negocio y atraer clientes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header reveal">
+    <span class="section-label">Portafolio</span>
+    <h2 class="section-title">Proyectos <strong>Realizados</strong></h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-item reveal">
+      <span class="project-tag">Residencial</span>
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80" alt="Casa moderna"/>
+      <div class="project-overlay">
+        <h3>Villa Moderna</h3>
+        <span>Casa Residencial · 2024</span>
+      </div>
+    </div>
+    <div class="project-item reveal">
+      <span class="project-tag">Comercial</span>
+      <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Edificio comercial"/>
+      <div class="project-overlay">
+        <h3>Torre Empresarial</h3>
+        <span>Oficinas · 2023</span>
+      </div>
+    </div>
+    <div class="project-item reveal">
+      <span class="project-tag">Apartamentos</span>
+      <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" alt="Edificio de apartamentos"/>
+      <div class="project-overlay">
+        <h3>Residencial Park</h3>
+        <span>Apartamentos · 2023</span>
+      </div>
+    </div>
+    <div class="project-item reveal">
+      <span class="project-tag">Remodelación</span>
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Interior remodelado"/>
+      <div class="project-overlay">
+        <h3>Interior Loft</h3>
+        <span>Remodelación · 2024</span>
+      </div>
+    </div>
+    <div class="project-item reveal">
+      <span class="project-tag">Residencial</span>
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Casa de lujo"/>
+      <div class="project-overlay">
+        <h3>Casa Las Palmas</h3>
+        <span>Residencial · 2022</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="videos-header reveal">
+    <span class="section-label">En Acción</span>
+    <h2 class="section-title">Videos de <strong>Nuestros Proyectos</strong></h2>
+    <p class="section-desc">Mira de cerca el proceso y resultado de nuestras obras más destacadas.</p>
+  </div>
+  <div class="videos-grid">
+    <div class="video-card reveal">
+      <img class="video-thumb" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80" alt="Video construcción"/>
+      <div class="video-play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <h4>Proceso de Construcción – Villa Moderna</h4>
+        <span>Residencial · 4:32 min</span>
+      </div>
+    </div>
+    <div class="video-card reveal">
+      <img class="video-thumb" src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=700&q=80" alt="Video edificio"/>
+      <div class="video-play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <h4>Tour 360° – Torre Empresarial</h4>
+        <span>Comercial · 6:15 min</span>
+      </div>
+    </div>
+    <div class="video-card reveal">
+      <img class="video-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Video remodelación"/>
+      <div class="video-play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-info">
+        <h4>Antes & Después – Remodelación Loft</h4>
+        <span>Remodelación · 3:48 min</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-content reveal">
+    <span class="section-label">Hablemos</span>
+    <h2>¿Listo para <strong>construir tu proyecto?</strong></h2>
+    <p>Contáctanos hoy y un asesor se comunicará contigo para dar vida a tu visión.</p>
+    <a href="mailto:contacto@buildco.com" class="btn-gold">Solicitar Cotización</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">BuildCo</div>
+    <div class="footer-text">© 2025 BuildCo Constructora. Todos los derechos reservados.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#about">Nosotros</a>
+    <a href="#services">Servicios</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
